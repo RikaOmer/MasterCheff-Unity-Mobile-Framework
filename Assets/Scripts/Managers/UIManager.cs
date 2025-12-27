@@ -21,8 +21,16 @@ namespace MasterCheff.Managers
 
         protected override void OnSingletonAwake()
         {
-            if (_mainCanvas == null) _mainCanvas = FindObjectOfType<Canvas>();
-            foreach (var panel in FindObjectsOfType<UIPanel>(true)) RegisterPanel(panel);
+            // Unity 2022.3+ uses FindFirstObjectByType instead of deprecated FindObjectOfType
+            if (_mainCanvas == null) _mainCanvas = FindFirstObjectByType<Canvas>();
+            RegisterExistingPanels();
+        }
+
+        private void RegisterExistingPanels()
+        {
+            // Unity 2022.3+ uses FindObjectsByType instead of deprecated FindObjectsOfType
+            foreach (var panel in FindObjectsByType<UIPanel>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                RegisterPanel(panel);
         }
 
         private void Update()

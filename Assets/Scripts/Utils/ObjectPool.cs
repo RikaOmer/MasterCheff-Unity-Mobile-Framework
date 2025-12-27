@@ -13,7 +13,23 @@ namespace MasterCheff.Utils
         private Dictionary<string, int> _activeCount = new Dictionary<string, int>();
 
         private static ObjectPool _instance;
-        public static ObjectPool Instance => _instance ?? (_instance = FindObjectOfType<ObjectPool>() ?? new GameObject("[ObjectPool]").AddComponent<ObjectPool>());
+        public static ObjectPool Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    // Unity 2022.3+ uses FindFirstObjectByType instead of deprecated FindObjectOfType
+                    _instance = FindFirstObjectByType<ObjectPool>();
+                    if (_instance == null)
+                    {
+                        GameObject go = new GameObject("[ObjectPool]");
+                        _instance = go.AddComponent<ObjectPool>();
+                    }
+                }
+                return _instance;
+            }
+        }
 
         private void Awake()
         {

@@ -40,7 +40,7 @@ Assets/
 
 ## 📋 Requirements
 
-- Unity 2021.3 LTS or higher
+- Unity 2022.3 LTS or higher
 - TextMeshPro (included in Unity)
 
 ## 📄 License

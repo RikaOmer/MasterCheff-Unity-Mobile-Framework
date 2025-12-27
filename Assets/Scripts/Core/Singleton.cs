@@ -21,7 +21,8 @@ namespace MasterCheff.Core
                 {
                     if (_instance == null)
                     {
-                        _instance = FindObjectOfType<T>();
+                        // Unity 2022.3+ uses FindFirstObjectByType instead of deprecated FindObjectOfType
+                        _instance = FindFirstObjectByType<T>();
                         if (_instance == null)
                         {
                             GameObject obj = new GameObject();
@@ -58,7 +59,20 @@ namespace MasterCheff.Core
     public abstract class SingletonScoped<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
-        public static T Instance => _instance ?? (_instance = FindObjectOfType<T>());
+
+        public static T Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    // Unity 2022.3+ uses FindFirstObjectByType instead of deprecated FindObjectOfType
+                    _instance = FindFirstObjectByType<T>();
+                }
+                return _instance;
+            }
+        }
+
         public static bool HasInstance => _instance != null;
 
         protected virtual void Awake()
