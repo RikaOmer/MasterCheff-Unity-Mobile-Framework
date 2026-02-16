@@ -1,4 +1,4 @@
-# MasterCheff - Unity Mobile Game Infrastructure
+# Unity Mobile Game Infrastructure
 
 Professional Unity Mobile Game Framework with all essential systems for mobile game development.
 
